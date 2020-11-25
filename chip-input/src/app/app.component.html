@@ -1,1 +1,7 @@
-<app-chip-input placeholder="Type a Programming Language"></app-chip-input>
+<app-chip-input
+  [(ngModel)]="value"
+  placeholder="Type a Programming Language"
+></app-chip-input>
+<div *ngFor="let val of value">
+  {{ val }}
+</div>

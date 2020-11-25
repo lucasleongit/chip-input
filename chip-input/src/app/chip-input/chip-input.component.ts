@@ -1,19 +1,47 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-chip-input',
   templateUrl: './chip-input.component.html',
   styleUrls: ['./chip-input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ChipInputComponent),
+      multi: true,
+    },
+  ],
 })
-export class ChipInputComponent {
+export class ChipInputComponent implements ControlValueAccessor {
+  @Input() disabled = false;
   @Input() placeholder: string;
 
   chips: string[] = [];
   currentInput: string = '';
 
+  onChange = (value: string[]) => {};
+  onTouched = () => {};
+
+  writeValue(value: string[]): void {
+    this.chips = value;
+    this.onChange(value);
+  }
+  registerOnChange(fn: (value: string[]) => void): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
   saveChip(): void {
     if (this.currentInput && this.chips.indexOf(this.currentInput) === -1) {
-      this.chips.push(this.currentInput);
+      if (!this.disabled) {
+        this.writeValue([...this.chips, this.currentInput]);
+      }
       this.currentInput = undefined;
     }
   }
@@ -30,5 +58,4 @@ export class ChipInputComponent {
       this.currentInput = undefined;
     }
   }
-
 }
