@@ -1,0 +1,22 @@
+.chipsContainer {
+  display: flex;
+  position: relative;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font: 13.33333px Arial;
+  min-height: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 2.5px;
+  border-radius: 5px;
+  &:focus {
+    border: 1px solid #aaa;
+  }
+
+  input {
+    flex: 1 1 auto;
+    border: none;
+    outline: none;
+    padding: 4px;
+  }
+}
