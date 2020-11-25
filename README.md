@@ -30,5 +30,5 @@ form control value.
 Please note that we don't accept solutions without periodic commits or if we are unable to execute the solution.
 
 ## How to use the component
-Instructions can be found [here](/chip-input/README.MD)
+Instructions can be found [here](/chip-input/README.md)
 
