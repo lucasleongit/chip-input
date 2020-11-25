@@ -6,5 +6,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  value: string[] = ['TypeScript'];
+  data: string[] = [
+    'JavaScript',
+    'TypeScript',
+    'PHP',
+    'Ruby',
+    'Python',
+    'Java',
+    'Swift',
+    'C#',
+    'C++',
+    'C',
+    'Objective C',
+    'Go',
+    'Rust',
+    'Angular',
+    'React',
+    'Vue',
+    'Node.js',
+    'Django',
+    'Qt',
+  ];
+  value: string[] = [];
 }

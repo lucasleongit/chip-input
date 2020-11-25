@@ -1,1 +1,11 @@
-<p>auto-suggest works!</p>
+<div>
+  <ul *ngIf="suggestions.length > 0" class="suggestionsList">
+    <li
+      *ngFor="let suggestion of suggestions; index as i"
+      [class.suggestionHighlighted]="i === selectedId"
+      (click)="onClick(suggestion)"
+    >
+      {{ suggestion }}
+    </li>
+  </ul>
+</div>

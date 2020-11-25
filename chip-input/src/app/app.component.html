@@ -1,5 +1,6 @@
 <app-chip-input
   [(ngModel)]="value"
+  [suggestions]="data"
   placeholder="Type a Programming Language"
 ></app-chip-input>
 <div *ngFor="let val of value">

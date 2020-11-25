@@ -4,8 +4,16 @@
   </app-chip>
   <input
     [(ngModel)]="currentInput"
+    (ngModelChange)="onInputChange($event)"
     [placeholder]="placeholder"
     (keyup.enter)="saveChip()"
     (keyup.backspace)="backspaceDelete()"
+    (keyup.arrowdown)="move('down')"
+    (keyup.arrowup)="move('up')"
   />
+  <app-auto-suggest
+    [suggestions]="filterdSuggestions"
+    [selectedId]="selectedId"
+    (onSuggestionClick)="saveSuggestionChip($event.suggestion)"
+  ></app-auto-suggest>
 </div>

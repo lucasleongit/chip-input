@@ -1,4 +1,10 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  forwardRef,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -14,11 +20,15 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class ChipInputComponent implements ControlValueAccessor {
+  @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
   @Input() disabled = false;
   @Input() placeholder: string;
+  @Input() suggestions: string[];
 
   chips: string[] = [];
   currentInput: string = '';
+  filterdSuggestions: string[] = [];
+  selectedId: number = -1;
 
   onChange = (value: string[]) => {};
   onTouched = () => {};
@@ -38,12 +48,34 @@ export class ChipInputComponent implements ControlValueAccessor {
   }
 
   saveChip(): void {
-    if (this.currentInput && this.chips.indexOf(this.currentInput) === -1) {
+    if (
+      this.currentInput &&
+      this.chips.indexOf(this.currentInput) === -1 &&
+      this.suggestions.indexOf(this.currentInput) !== -1
+    ) {
       if (!this.disabled) {
         this.writeValue([...this.chips, this.currentInput]);
       }
+      this.filterdSuggestions = [];
+      this.selectedId = -1;
       this.currentInput = undefined;
     }
+  }
+
+  saveSuggestionChip(suggestionChip: string) {
+    if (this.chips.indexOf(suggestionChip) === -1) {
+      if (!this.disabled) {
+        this.writeValue([...this.chips, suggestionChip]);
+      }
+      this.filterdSuggestions = [];
+      this.selectedId = -1;
+      this.currentInput = undefined;
+      this.chipInput.nativeElement.focus();
+    }
+  }
+
+  setCurrentSuggestion(index: number) {
+    this.selectedId = index;
   }
 
   deleteChip(index: number): void {
@@ -56,6 +88,34 @@ export class ChipInputComponent implements ControlValueAccessor {
     }
     if (this.currentInput === '') {
       this.currentInput = undefined;
+      this.filterdSuggestions = [];
+      this.selectedId = -1;
+    }
+  }
+
+  move(arrowKey: string): void {
+    if (this.filterdSuggestions.length > 0) {
+      if (arrowKey === 'down') {
+        if (this.selectedId < this.filterdSuggestions.length - 1) {
+          this.selectedId++;
+          this.currentInput = this.filterdSuggestions[this.selectedId];
+        }
+      } else if (arrowKey === 'up') {
+        if (this.selectedId > 0) {
+          this.selectedId--;
+          this.currentInput = this.filterdSuggestions[this.selectedId];
+        }
+      }
+    }
+  }
+
+  onInputChange($event: Object): void {
+    if (this.currentInput) {
+      this.filterdSuggestions = this.suggestions.filter(
+        (suggestion) =>
+          !this.chips.includes(suggestion) &&
+          suggestion.toLowerCase().includes(this.currentInput.toLowerCase())
+      );
     }
   }
 }
