@@ -9,10 +9,23 @@ export class AutoSuggestComponent {
   @Input() suggestions: (string)[]
   @Input() selectedId: number
   @Output() onSuggestionClick = new EventEmitter<any>();
+  @Output() onSuggestionHover = new EventEmitter<any>()
+  @Output() onSuggestionOut = new EventEmitter<any>()
+
 
   onClick(suggestion: string) {
     this.onSuggestionClick.emit({
       suggestion
     });
+  }
+
+  onHover(index: number) {
+    this.onSuggestionHover.emit({
+      index
+    })
+  }
+
+  onOut() {
+    this.onSuggestionOut.emit({})
   }
 }

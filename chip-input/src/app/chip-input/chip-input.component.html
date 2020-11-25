@@ -15,5 +15,7 @@
     [suggestions]="filterdSuggestions"
     [selectedId]="selectedId"
     (onSuggestionClick)="saveSuggestionChip($event.suggestion)"
+    (onSuggestionHover)="setCurrentSuggestion($event.index)"
+    (onSuggestionOut)="setCurrentSuggestion(-1)"
   ></app-auto-suggest>
 </div>

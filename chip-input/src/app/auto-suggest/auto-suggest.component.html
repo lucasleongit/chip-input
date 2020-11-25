@@ -4,6 +4,8 @@
       *ngFor="let suggestion of suggestions; index as i"
       [class.suggestionHighlighted]="i === selectedId"
       (click)="onClick(suggestion)"
+      (mouseover)="onHover(i)"
+      (mouseout)="onOut()"
     >
       {{ suggestion }}
     </li>
