@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ChipInputComponent } from './chip-input/chip-input.component';
+import { ChipComponent } from './chip/chip.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChipInputComponent
+    ChipInputComponent,
+    ChipComponent
   ],
   imports: [
     BrowserModule
