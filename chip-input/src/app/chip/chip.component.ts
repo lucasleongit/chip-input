@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-chip',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./chip.component.scss']
 })
 export class ChipComponent {
+  @Output() onRemove = new EventEmitter<any>();
 
+  onClose(): void {
+    this.onRemove.emit({});
+  }
 }

@@ -1,1 +1,7 @@
-<p>chip works!</p>
+<div
+  class="chip"
+  (click)="onClose()"
+>
+  <ng-content></ng-content>
+  <span (click)="onClose()"> &times;</span>
+</div>
