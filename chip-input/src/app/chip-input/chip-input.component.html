@@ -1,11 +1,11 @@
 <div class="chipsContainer">
-  <app-chip>
-    TypeScript
-  </app-chip>
-  <app-chip>
-    JavaScript
+  <app-chip *ngFor="let chip of chips; index as i" (onRemove)="deleteChip(i)">
+    {{ chip }}
   </app-chip>
   <input
-    placeholder="Type a Programming Language"
+    [(ngModel)]="currentInput"
+    [placeholder]="placeholder"
+    (keyup.enter)="saveChip()"
+    (keyup.backspace)="backspaceDelete()"
   />
 </div>
