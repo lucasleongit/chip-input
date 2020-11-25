@@ -5,9 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ChipInputComponent } from './chip-input/chip-input.component';
 import { ChipComponent } from './chip/chip.component';
+import { AutoSuggestComponent } from './auto-suggest/auto-suggest.component';
 
 @NgModule({
-  declarations: [AppComponent, ChipInputComponent, ChipComponent],
+  declarations: [AppComponent, ChipInputComponent, ChipComponent, AutoSuggestComponent],
   imports: [BrowserModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
